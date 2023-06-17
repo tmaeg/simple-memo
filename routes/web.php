@@ -29,7 +29,7 @@ Route::get('/', function () {
 Route::get('/dashboard', [MemoController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::resource('/memos', MemoController::class)
-    ->only(['index','store'])
+    ->only(['index', 'store', 'edit', 'update'])
     ->middleware(['auth', 'verified']);
 
 Route::middleware('auth')->group(function () {

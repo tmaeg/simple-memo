@@ -36,12 +36,12 @@ const form = useForm({
                     </tr>
                 </thead>
                 <tbody>
-                    <tr v-for="(memo, index) in memos" :key="memo.id">
-                        <td>{{ index }}</td>
+                    <tr v-for="(memo, no) in memos" :key="memo.id">
+                        <td>{{ no }}</td>
                         <td>{{ memo.content }}</td>
                         <td>{{ new Date(memo.created_at).toLocaleDateString() }}</td>
                         <td>{{ new Date(memo.updated_at).toLocaleDateString() }}</td>
-                        <td><SecondaryButton>編集</SecondaryButton></td>
+                        <td><SecondaryButton @click="() => updateMemo(memo.id, no)">編集</SecondaryButton></td>
                         <td><DangerButton>削除</DangerButton></td>
                     </tr>
                 </tbody>
@@ -49,3 +49,13 @@ const form = useForm({
         </div>
     </AuthenticatedLayout>
 </template>
+
+<script>
+export default {
+  methods: {
+    updateMemo(memo, no) {
+        this.$inertia.visit(route('memos.edit', {memo, no}));
+    },
+  },
+};
+</script>

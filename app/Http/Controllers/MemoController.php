@@ -8,6 +8,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 use Inertia\Response;
+use Redirect;
 
 class MemoController extends Controller
 {
@@ -54,17 +55,29 @@ class MemoController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Memo $memo)
+    public function edit(Memo $memo): Response
     {
-        //
+        return Inertia::render('Memos/Edit', [
+            'memo' => $memo,
+            'no' => request()->query('no'),
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Memo $memo)
+    public function update(Request $request, Memo $memo): RedirectResponse
     {
-        //
+        $this->authorize('update', $memo);
+
+        
+        $validated = $request->validate([
+            'content' => 'required|string|max:100',
+        ]);
+
+        $memo->update($validated);
+
+        return redirect(route('dashboard'));
     }
 
     /**

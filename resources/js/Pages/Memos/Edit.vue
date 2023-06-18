@@ -20,17 +20,19 @@ const title = computed(() => {
     <Head :title="title" />
 
     <AuthenticatedLayout>
-        <h2>{{ title }}</h2>
-        <div>
-            <h3>メモ内容</h3>
-            <form @submit.prevent="form.put(route('memos.update', memo.id))">
-                <input type="text" v-model="form.content" />
-                <InputError :message="form.errors.content" />
-                <div>
-                    <SecondaryButton @click="moveToDashboard">戻る</SecondaryButton>
-                    <PrimaryButton>修正</PrimaryButton>
-                </div>
-            </form>
+        <div class="max-w-lg mx-auto px-4 py-8">
+            <h2 class="font-bold text-center mb-8">{{ title }}</h2>
+            <div>
+                <h3 class="mb-4">メモ内容</h3>
+                <form @submit.prevent="form.put(route('memos.update', memo.id))">
+                    <input type="text" v-model="form.content" class="w-full" />
+                    <InputError :message="form.errors.content" />
+                    <div class="mt-4 flex justify-between">
+                        <SecondaryButton @click="moveToDashboard">戻る</SecondaryButton>
+                        <PrimaryButton>修正</PrimaryButton>
+                    </div>
+                </form>
+            </div>
         </div>
     </AuthenticatedLayout>
 </template>

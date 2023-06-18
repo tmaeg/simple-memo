@@ -18205,7 +18205,19 @@
      
 }
 
-        namespace Spatie\LaravelIgnition\Facades { 
+        namespace Askdkc\Breezejp\Facades { 
+            /**
+     * 
+     *
+     * @see \Askdkc\Breezejp\Breezejp
+     */ 
+        class Breezejp {
+         
+    }
+     
+}
+
+    namespace Spatie\LaravelIgnition\Facades { 
             /**
      * 
      *
@@ -22592,6 +22604,7 @@ namespace  {
             class Validator extends \Illuminate\Support\Facades\Validator {}
             class View extends \Illuminate\Support\Facades\View {}
             class Vite extends \Illuminate\Support\Facades\Vite {}
+            class Breezejp extends \Askdkc\Breezejp\Facades\Breezejp {}
             class Flare extends \Spatie\LaravelIgnition\Facades\Flare {}
      
 }

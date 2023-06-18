@@ -2,9 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\MemoController;
-use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
-use Inertia\Inertia;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,14 +15,9 @@ use Inertia\Inertia;
 |
 */
 
-Route::get('/', function () {
-    return Inertia::render('Welcome', [
-        'canLogin' => Route::has('login'),
-        'canRegister' => Route::has('register'),
-        'laravelVersion' => Application::VERSION,
-        'phpVersion' => PHP_VERSION,
-    ]);
-});
+Route::get('/', function() {
+    return redirect(route('login'));
+})->middleware('guest');
 
 Route::get('/dashboard', [MemoController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
 Route::post('/memos', [MemoController::class, 'store'])->middleware(['auth', 'verified'])->name('memos.store');

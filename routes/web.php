@@ -27,10 +27,10 @@ Route::get('/', function () {
 });
 
 Route::get('/dashboard', [MemoController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
-
-Route::resource('/memos', MemoController::class)
-    ->only(['index', 'store', 'edit', 'update'])
-    ->middleware(['auth', 'verified']);
+Route::post('/memos', [MemoController::class, 'store'])->middleware(['auth', 'verified'])->name('memos.store');
+Route::get('/memos/edit/{memo}', [MemoController::class, 'edit'])->middleware(['auth', 'verified'])->name('memos.edit');
+Route::put('/memos/{memo}', [MemoController::class, 'update'])->middleware(['auth', 'verified'])->name('memos.update');
+Route::delete('/memos/{memo}', [MemoController::class, 'destroy'])->middleware(['auth', 'verified'])->name('memos.destroy');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

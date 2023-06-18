@@ -42,7 +42,7 @@ const form = useForm({
                         <td>{{ new Date(memo.created_at).toLocaleDateString() }}</td>
                         <td>{{ new Date(memo.updated_at).toLocaleDateString() }}</td>
                         <td><SecondaryButton @click="() => updateMemo(memo.id, no)">編集</SecondaryButton></td>
-                        <td><DangerButton>削除</DangerButton></td>
+                        <td><DangerButton @click="() => destroyMemo(memo.id)">削除</DangerButton></td>
                     </tr>
                 </tbody>
             </table>
@@ -55,6 +55,13 @@ export default {
   methods: {
     updateMemo(memo, no) {
         this.$inertia.visit(route('memos.edit', {memo, no}));
+    },
+    destroyMemo(memo) {
+        if(window.confirm('本当に削除してもよろしいですか？')) {
+            this.$inertia.visit(route('memos.destroy', memo), {
+                method: 'delete',
+            });
+        }
     },
   },
 };

@@ -55,11 +55,11 @@ class MemoController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Memo $memo): Response
+    public function edit(Request $request, Memo $memo): Response
     {
         return Inertia::render('Memos/Edit', [
             'memo' => $memo,
-            'no' => request()->query('no'),
+            'no' => $request->query('no'),
         ]);
     }
 
@@ -83,8 +83,12 @@ class MemoController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Memo $memo)
+    public function destroy(Memo $memo): RedirectResponse
     {
-        //
+        $this->authorize('delete', $memo);
+
+        $memo->delete();
+
+        return redirect(route('dashboard'));
     }
 }
